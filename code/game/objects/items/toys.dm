@@ -711,7 +711,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/obj/machinery/computer/holodeck/holo = null // Holodeck cards should not be infinite
-	var/list/cards = list()
+
+	// TODO: check if this actually works? may need to replace with
+	// var/list/cards = list()
+	var/obj/item/cards/singlecard/cards = list()
 
 /obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
@@ -728,6 +731,20 @@
 		for(var/person in list("Jack", "Queen", "King"))
 			cards += "[person] of [suit]"
 
+///Generates a new card, with the given name
+/obj/item/toy/cards/deck/proc/generate_card(var/name)
+	var/obj/item/cards/singlecard/card = new
+
+	if (holo)
+		holo.spawned += card // track them leaving the holodeck
+
+	card.name = name
+	card.parentdeck = src
+
+	// should be all?
+
+
+
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 //ATTACK HAND NOT CALLING PARENT
 /obj/item/toy/cards/deck/attack_hand(mob/user, list/modifiers)
@@ -738,24 +755,22 @@
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
-	var/choice = null
 	if(cards.len == 0)
 		to_chat(user, span_warning("There are no more cards to draw!"))
 		return
-	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
-	if(holo)
-		holo.spawned += H // track them leaving the holodeck
-	choice = cards[1]
-	H.cardname = choice
-	H.parentdeck = src
-	var/O = src
-	H.apply_card_vars(H,O)
-	popleft(cards)
-	H.pickup(user)
-	user.put_in_hands(H)
+	var/obj/item/toy/cards/singlecard/new_card = cards[1]
+	new_card.apply_card_vars(new_card, src)
+
+	// i think the list can be just subtracted like this, since it's an object.
+	// TODO: TEST IM NOT JUST PULLING THIS OUT OF MY ASS
+	cards -= new_card
+	// popleft(cards)
+
+	new_card.pickup(user)
+	user.put_in_hands(new_card)
 	user.visible_message(span_notice("[user] draws a card from the deck."), span_notice("You draw a card from the deck."))
 	update_appearance()
-	return H
+	return new_card
 
 /obj/item/toy/cards/deck/update_icon_state()
 	switch(cards.len)
