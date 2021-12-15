@@ -725,11 +725,14 @@
 /obj/item/toy/cards/deck/proc/populate_deck()
 	icon_state = "deck_[deckstyle]_full"
 	for(var/suit in list("Hearts", "Spades", "Clubs", "Diamonds"))
-		cards += "Ace of [suit]"
+		cards += generate_card("Ace of [suit]")
+		//cards += "Ace of [suit]"
 		for(var/i in 2 to 10)
-			cards += "[i] of [suit]"
+			cards += generate_card("[i] of [suit]")
+			//cards += "[i] of [suit]"
 		for(var/person in list("Jack", "Queen", "King"))
 			cards += "[person] of [suit]"
+			//cards += "[person] of [suit]"
 
 ///Generates a new card, with the given name
 /obj/item/toy/cards/deck/proc/generate_card(var/name)
@@ -740,6 +743,8 @@
 
 	card.name = name
 	card.parentdeck = src
+
+	return card
 
 	// should be all?
 
