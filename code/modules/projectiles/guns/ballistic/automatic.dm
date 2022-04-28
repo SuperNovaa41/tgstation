@@ -51,6 +51,9 @@
 	desc = "A prototype full-auto 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	burst_size = 1
+	overheat_rate = 20
+	overheat_limit = 100
+	overheat_time = 100
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE
