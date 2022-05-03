@@ -266,6 +266,8 @@
 	SIGNAL_HANDLER
 	if(semicd || shooter.incapacitated())
 		return NONE
+	if(!check_cooldown(shooter)) // gun cooldown
+		return NONE
 	if(!can_shoot())
 		shoot_with_empty_chamber(shooter)
 		return NONE
