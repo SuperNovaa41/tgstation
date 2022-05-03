@@ -1,4 +1,4 @@
-## /tg/station codebase
+## Pinnacle Station Codebase
 
 * **Pinnacle Station Discord:** https://discord.gg/vQpsZ6dXyN
 
