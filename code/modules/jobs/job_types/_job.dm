@@ -472,6 +472,8 @@
 			var/datum/species/species = new species_type
 
 			var/gender = player_client.prefs.read_preference(/datum/preference/choiced/gender)
+			if(HAS_TRAIT(SSstation, STATION_TRAIT_APOCALYPSE) && (gender == FEMALE))
+				return FALSE
 			real_name = species.random_name(gender, TRUE)
 	dna.update_dna_identity()
 

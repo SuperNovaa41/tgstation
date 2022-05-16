@@ -26,6 +26,19 @@
 	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
 	blacklist = list(/datum/station_trait/random_spawns, /datum/station_trait/hangover)
 
+/datum/station_trait/apocalypse
+	name = "Apocalypse"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 3
+	show_in_report = TRUE
+	report_message = "After a new drug has hit the market, a sudden apocalypse occured when all females suddenly ceased to exist."
+	trait_to_give = STATION_TRAIT_APOCALYPSE
+
+/datum/station_trait/apocalypse/on_round_start()
+	for(var/mob/all_mobs as anything in GLOB.mob_list)
+		if(all_mobs.gender == FEMALE)
+			qdel(all_mobs)
+
 /datum/station_trait/random_spawns
 	name = "Drive-by landing"
 	trait_type = STATION_TRAIT_NEGATIVE
