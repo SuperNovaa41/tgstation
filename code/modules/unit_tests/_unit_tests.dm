@@ -167,6 +167,7 @@
 #include "hydroponics_validate_genes.dm"
 #include "inhands.dm"
 #include "json_savefile_importing.dm"
+#include "jobs.dm"
 #include "keybinding_init.dm"
 #include "knockoff_component.dm"
 #include "language_transfer.dm"
